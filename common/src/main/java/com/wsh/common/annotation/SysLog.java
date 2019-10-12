@@ -1,0 +1,35 @@
+package com.wsh.common.annotation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import com.wsh.common.enums.BusinessType;
+import com.wsh.common.enums.OperatorType;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface SysLog {
+    /**
+     * 模块 
+     */
+    public String title() default "";
+
+    /**
+     * 功能
+     */
+    public BusinessType businessType() default BusinessType.OTHER;
+
+    /**
+     * 操作人类别
+     */
+    public OperatorType operatorType() default OperatorType.MANAGE;
+
+    /**
+     * 是否保存请求的参数
+     */
+    public boolean isSaveRequestData() default true;
+}
