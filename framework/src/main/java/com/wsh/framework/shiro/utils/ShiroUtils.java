@@ -8,6 +8,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
+import com.wsh.common.utils.StringUtils;
+import com.wsh.common.utils.bean.BeanUtils;
+import com.wsh.framework.shiro.realm.UserRealm;
+import com.wsh.sys.domain.SysUser;
+
 
 
 /**

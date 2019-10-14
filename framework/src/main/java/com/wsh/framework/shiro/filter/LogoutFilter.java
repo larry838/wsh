@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.wsh.common.utils.StringUtils;
 import com.wsh.framework.shiro.utils.ShiroUtils;
+import com.wsh.sys.domain.SysUser;
 
 /**
  * 退出过滤器

@@ -21,4 +21,8 @@ public class UserRealm extends AuthorizingRealm {
 		return null;
 	}
 
+	
+	public void clearCachedAuthorizationInfo(){
+		
+	}
 }
