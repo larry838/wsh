@@ -1,4 +1,4 @@
-package com.podinns.pms.common.exception.user;
+package com.wsh.common.exception.user;
 
 /**
  * 用户错误最大次数异常类

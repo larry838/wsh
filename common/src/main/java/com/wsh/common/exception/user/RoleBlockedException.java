@@ -1,4 +1,4 @@
-package com.podinns.pms.common.exception.user;
+package com.wsh.common.exception.user;
 
 /**
  * 角色锁定异常类

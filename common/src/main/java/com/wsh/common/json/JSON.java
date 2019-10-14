@@ -1,4 +1,4 @@
-package com.podinns.pms.common.json;
+package com.wsh.common.json;
 
 import java.io.File;
 import java.io.IOException;

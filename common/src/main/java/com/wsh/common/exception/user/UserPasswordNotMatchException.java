@@ -1,4 +1,4 @@
-package com.podinns.pms.common.exception.user;
+package com.wsh.common.exception.user;
 
 /**
  * 用户密码不正确或不符合规范异常类

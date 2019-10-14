@@ -1,7 +1,8 @@
-package com.podinns.pms.common.exception.base;
+package com.wsh.common.exception.base;
 
-import com.podinns.pms.common.utils.MessageUtils;
-import com.podinns.pms.common.utils.StringUtils;
+import com.wsh.common.utils.StringUtils;
+
+import com.wsh.common.utils.MessageUtils;
 
 /**
  * 基础异常

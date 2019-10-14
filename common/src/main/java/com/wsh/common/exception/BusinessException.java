@@ -1,4 +1,4 @@
-package com.podinns.pms.common.exception;
+package com.wsh.common.exception;
 
 /**
  * 业务异常

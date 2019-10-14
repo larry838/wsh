@@ -12,86 +12,112 @@
     
     <artifactId>${wsh-common.aid}</artifactId>
     
-    <description> commonÍ¨ÓÃÄ£¿é</description>
+    <description>commoné€šç”¨</description>
     <dependencies>
-    
-		<!-- Spring¿ò¼Ü»ù±¾µÄºËÐÄ¹¤¾ß -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-		</dependency>
-		
-		<!-- SpringWebÄ£¿é -->
-		<dependency>
+        <!-- Springæ¡†æž¶åŸºæœ¬çš„æ ¸å¿ƒå·¥å…· -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        
+        <!-- SpringWebæ¨¡å— -->
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
-        
-        <!--ShiroºËÐÄ¿ò¼Ü -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-		</dependency>
-        
-		<!-- pagehelper ·ÖÒ³²å¼þ -->
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper-spring-boot-starter</artifactId>
-		</dependency>
-		
-		<!-- ×Ô¶¨ÒåÑéÖ¤×¢½â -->
+        <!--mybatis-plus-->
         <dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>    
+        <!--Shiroæ ¸å¿ƒæ¡†æž¶ -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+        </dependency>
+        
+        <!-- pagehelper åˆ†é¡µæ’ä»¶ -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis-spring</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        
+        <!-- è‡ªå®šä¹‰éªŒè¯æ³¨è§£ -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
         </dependency>
     
-        <!--³£ÓÃ¹¤¾ßÀà -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
-		
-		<!-- JSON¹¤¾ßÀà -->
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		</dependency>
-
-		<!-- °¢ÀïJSON½âÎöÆ÷ -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-		</dependency>
-
-		<!-- io³£ÓÃ¹¤¾ßÀà -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-
-		<!-- ÎÄ¼þÉÏ´«¹¤¾ßÀà -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>
-		
-		<!-- excel¹¤¾ß -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-		</dependency>
-		
-		<!-- yml½âÎöÆ÷ -->
-		<dependency>
-		    <groupId>org.yaml</groupId>
-		    <artifactId>snakeyaml</artifactId>
-		</dependency>
-		
-		<!-- servlet°ü -->
+        <!--å¸¸ç”¨å·¥å…·ç±» -->
         <dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-		</dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        
+        <!-- ç¼–ç åŠ å¯†è§£å¯† -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>   
+             
+        <!-- JSONå·¥å…·ç±» -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- é˜¿é‡ŒJSONè§£æžå™¨ -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <!-- ioå¸¸ç”¨å·¥å…·ç±» -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <!-- æ–‡ä»¶ä¸Šä¼ å·¥å…·ç±» -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        
+        <!-- HTMLè§£æžå™¨ -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+        
+        <!-- excelå·¥å…· -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+        </dependency>
+        
+        <!-- ymlè§£æžå™¨ -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+        
+        <!-- servletåŒ… -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
 		
     </dependencies>
 

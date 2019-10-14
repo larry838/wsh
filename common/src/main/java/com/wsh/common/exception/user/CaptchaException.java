@@ -1,4 +1,4 @@
-package com.podinns.pms.common.exception.user;
+package com.wsh.common.exception.user;
 
 /**
  * 验证码错误异常类

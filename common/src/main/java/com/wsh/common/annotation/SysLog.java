@@ -9,6 +9,11 @@ import java.lang.annotation.Target;
 import com.wsh.common.enums.BusinessType;
 import com.wsh.common.enums.OperatorType;
 
+/** 
+* @author Carry xie
+*
+*/
+
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

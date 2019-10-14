@@ -1,4 +1,4 @@
-package com.podinns.pms.common.exception.file;
+package com.wsh.common.exception.file;
 
 import java.util.Arrays;
 import org.apache.commons.fileupload.FileUploadException;

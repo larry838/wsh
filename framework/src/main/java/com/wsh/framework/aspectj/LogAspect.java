@@ -3,7 +3,9 @@ package com.wsh.framework.aspectj;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import com.wsh.common.utils.StringUtils;
+import com.wsh.common.utils.servlet.ServletUtils;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -16,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.wsh.common.annotation.SysLog;
+import com.wsh.framework.shiro.utils.ShiroUtils;
 
 
 /**

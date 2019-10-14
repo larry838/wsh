@@ -2,101 +2,131 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-		  <modelVersion>4.0.0</modelVersion>
+          <modelVersion>4.0.0</modelVersion>
 
     <parent>
-		<groupId>com.wshsoft</groupId>
-		<artifactId>wsh</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+        <groupId>com.wshsoft</groupId>
+        <artifactId>wsh</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     
     <artifactId>${wsh-framework.aid}</artifactId>
     
-    <description>frameworkºËÐÄ¿ò¼Ü</description>
+    <description>frameworkæ ¸å¿ƒæ¡†æž¶</description>
     <dependencies>
 
-        <!-- Í¨ÓÃÄ£¿é-->
+        <!-- é€šç”¨æ¨¡å—-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${wsh-common.aid}</artifactId>
         </dependency>
-		 <!-- ÏµÍ³Ä£¿é-->
+         <!-- ç³»ç»Ÿæ¨¡å—-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${wsh-biz.aid}</artifactId>
         </dependency>
 
-        <!-- SpringBoot WebÈÝÆ÷ -->
-	     <dependency>
+        <!-- SpringBoot Webå®¹å™¨ -->
+         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        
+        <!--é›†æˆredisï¼Œclientæ”¹ç”¨jedis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>redis.clients</groupId>
+                    <artifactId>jedis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        
+        <!-- SpringBoot æ‹¦æˆªå™¨ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
 
-        <!-- SpringBoot À¹½ØÆ÷ -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
-
-		<!--°¢ÀïÊý¾Ý¿âÁ¬½Ó³Ø -->
-		<dependency>
+        <!--é˜¿é‡Œæ•°æ®åº“è¿žæŽ¥æ±  -->
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
-		
-		<!--ÑéÖ¤Âë -->
-		<dependency>
-			<groupId>com.github.penggle</groupId>
-			<artifactId>kaptcha</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>javax.servlet-api</artifactId>
-					<groupId>javax.servlet</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        
+        <!--éªŒè¯ç  -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>javax.servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<!-- ShiroÊ¹ÓÃSrping¿ò¼Ü -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-		</dependency>
+        <!-- Shiroä½¿ç”¨Srpingæ¡†æž¶ -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+        </dependency>
 
-		<!-- ShiroÊ¹ÓÃEhCache»º´æ¿ò¼Ü -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-ehcache</artifactId>
-		</dependency>
-		
-		<!-- thymeleafÄ£°åÒýÇæºÍshiro¿ò¼ÜµÄÕûºÏ -->
-		<dependency>
-			<groupId>com.github.theborakompanioni</groupId>
-			<artifactId>thymeleaf-extras-shiro</artifactId>
-		</dependency>
-
-		<!-- ½âÎö¿Í»§¶Ë²Ù×÷ÏµÍ³¡¢ä¯ÀÀÆ÷µÈ -->
-		<dependency>
-			<groupId>eu.bitwalker</groupId>
-			<artifactId>UserAgentUtils</artifactId>
-		</dependency>
-		
-		<!-- »ñÈ¡ÏµÍ³ÐÅÏ¢ -->
-		<dependency>
-			<groupId>com.github.oshi</groupId>
-			<artifactId>oshi-core</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>net.java.dev.jna</groupId>
-			<artifactId>jna</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>net.java.dev.jna</groupId>
-			<artifactId>jna-platform</artifactId>
-		</dependency>
+        <!-- Shiroä½¿ç”¨EhCacheç¼“å­˜æ¡†æž¶ -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+        </dependency>
+        
+        <!-- thymeleafæ¨¡æ¿å¼•æ“Žå’Œshiroæ¡†æž¶çš„æ•´åˆ -->
+        <dependency>
+            <groupId>com.github.theborakompanioni</groupId>
+            <artifactId>thymeleaf-extras-shiro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>shiro-core</artifactId>
+                    <groupId>org.apache.shiro</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- è§£æžå®¢æˆ·ç«¯æ“ä½œç³»ç»Ÿã€æµè§ˆå™¨ç­‰ -->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+        </dependency>
+        
+        <!-- èŽ·å–ç³»ç»Ÿä¿¡æ¯ -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+        </dependency>
 
     </dependencies>
 
-	
+    
 </project>

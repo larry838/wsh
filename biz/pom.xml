@@ -12,20 +12,17 @@
     
     <artifactId>${wsh-biz.aid}</artifactId>
     
-    <description>biz模块</description>
+    <description>biz涓氬姟</description>
     <dependencies>
-        <!-- 通用工具-->
+        <!-- 閫氱敤妯″潡-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${wsh-common.aid}</artifactId>
         </dependency>
-
-    	 <!-- Mysql驱动包 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        
+           <groupId>javax.persistence</groupId>
+           <artifactId>javax.persistence-api</artifactId>
+        </dependency>       
     </dependencies>
 	
 </project>

@@ -1,6 +1,6 @@
-package com.podinns.pms.common.exception.user;
+package com.wsh.common.exception.user;
 
-import com.podinns.pms.common.exception.base.BaseException;
+import com.wsh.common.exception.base.BaseException;
 
 /**
  * 用户信息异常类

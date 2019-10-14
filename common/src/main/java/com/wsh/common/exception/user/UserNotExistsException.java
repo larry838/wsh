@@ -1,4 +1,4 @@
-package com.podinns.pms.common.exception.user;
+package com.wsh.common.exception.user;
 
 /**
  * 用户不存在异常类

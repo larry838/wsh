@@ -1,4 +1,4 @@
-package com.podinns.pms.common.json;
+package com.wsh.common.json;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.podinns.pms.common.utils.StringUtils;
+import com.wsh.common.utils.StringUtils;
 
 /**
  * 通用消息对象，基于Map实现的可嵌套数据结构。 支持JSON数据结构。

@@ -1,4 +1,4 @@
-package com.podinns.pms.common.exception.file;
+package com.wsh.common.exception.file;
 
 /**
  * 文件名称超长限制异常类
