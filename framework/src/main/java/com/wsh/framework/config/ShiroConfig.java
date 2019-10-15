@@ -38,7 +38,7 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class ShiroConfig {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

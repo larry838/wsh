@@ -7,9 +7,14 @@ import org.slf4j.LoggerFactory;
 
 import com.wsh.common.constant.Constants;
 import com.wsh.common.utils.ip.AddressUtils;
+import com.wsh.common.utils.log.LogUtils;
 import com.wsh.common.utils.servlet.ServletUtils;
 import com.wsh.common.utils.spring.SpringUtils;
+import com.wsh.framework.async.manager.log.LoginLogManager;
+import com.wsh.framework.async.manager.log.SysOperLogManager;
 import com.wsh.framework.shiro.utils.ShiroUtils;
+import com.wsh.sys.domain.SysLoginLog;
+import com.wsh.sys.domain.SysOperLog;
 
 import eu.bitwalker.useragentutils.UserAgent;
 

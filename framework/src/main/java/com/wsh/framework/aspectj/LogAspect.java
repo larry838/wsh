@@ -19,7 +19,11 @@ import org.springframework.stereotype.Component;
 
 import com.wsh.common.annotation.SysLog;
 import com.wsh.common.enums.BusinessStatus;
+import com.wsh.common.json.JSON;
+import com.wsh.framework.async.factory.AsyncFactory;
+import com.wsh.framework.async.manager.AsyncManager;
 import com.wsh.framework.shiro.utils.ShiroUtils;
+import com.wsh.sys.domain.SysOperLog;
 import com.wsh.sys.domain.SysUser;
 
 
@@ -127,7 +131,7 @@ public class LogAspect
      * @param operLog 操作日志
      * @throws Exception
      */
-    public void getControllerMethodDescription(Log log, SysOperLog operLog) throws Exception
+    public void getControllerMethodDescription(SysLog log, SysOperLog operLog) throws Exception
     {
         // 设置action动作
         operLog.setBusinessType(log.businessType().ordinal());
@@ -159,7 +163,7 @@ public class LogAspect
     /**
      * 是否存在注解，如果存在就获取
      */
-    private Log getAnnotationLog(JoinPoint joinPoint) throws Exception
+    private SysLog getAnnotationLog(JoinPoint joinPoint) throws Exception
     {
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
@@ -167,7 +171,7 @@ public class LogAspect
 
         if (method != null)
         {
-            return method.getAnnotation(Log.class);
+            return method.getAnnotation(SysLog.class);
         }
         return null;
     }

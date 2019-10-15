@@ -12,13 +12,16 @@ import org.hibernate.validator.constraints.Email;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wsh.common.annotation.Excel;
 import com.wsh.common.annotation.Excel.Type;
 import com.wsh.common.core.domain.BaseEntity;
 import com.wsh.common.enums.PwdTypeEnum;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -30,6 +33,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @TableName(value = "sys_user")
 public class SysUser extends BaseEntity
 {
@@ -71,7 +75,7 @@ public class SysUser extends BaseEntity
     private String phonenumber;
 
     /** 用户性别 */
-    @Excel(name = "用户性别", readConverterExp = "0=男,1=女,2=未知")
+    @Excel(name = "用户性别", readConverterExp = "M=男,F=女,U=未知")
     private String gender;
 
     /** 用户头像 */
@@ -85,7 +89,8 @@ public class SysUser extends BaseEntity
 
     /** 帐号状态（0正常 -1停用） */
     @Excel(name = "帐号状态", readConverterExp = "0=正常,-1=停用")
-    private String status;
+    @TableLogic
+    private Integer status;
 
     /** 删除标志（0代表存在 -1代表删除） */
     @TableField(value = "del_flag")
@@ -103,14 +108,17 @@ public class SysUser extends BaseEntity
 
     /** 部门对象 */
     @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT)
+    @TableField(exist = false)
     private SysDept dept;
     
     /**工作岗位*/
+    @TableField(exist = false)
     private SysPost post;
-
+    @TableField(exist = false)
     private List<SysRole> roles;
 
     /** 角色组 */
+    @TableField(exist = false)
     private Long[] roleIds;
 
     /**密码是否修改*/
@@ -139,7 +147,7 @@ public class SysUser extends BaseEntity
             .append("userName", getUserName())
             .append("email", getEmail())
             .append("phonenumber", getPhonenumber())
-            .append("sex", getGender())
+            .append("gender", getGender())
             .append("avatar", getAvatar())
             .append("password", getPassword())
             .append("salt", getSalt())

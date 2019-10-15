@@ -35,7 +35,7 @@ public class BaseEntity implements Serializable
     protected Date createTime;
 
     /** 更新者 */
-    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE) // 新增和更新执行
+    @TableField(value = "update_by", fill = FieldFill.UPDATE) //更新执行
     protected String updateBy;
 
     /** 更新时间 */
@@ -43,8 +43,8 @@ public class BaseEntity implements Serializable
     @TableField(value = "update_Time", fill = FieldFill.INSERT_UPDATE)
     protected Date updateTime;
 
-    @TableLogic
-    protected Integer deleted;
+   // @TableLogic
+   // protected Integer deleted;
 
     /** 请求参数 */
     @TableField(exist = false)

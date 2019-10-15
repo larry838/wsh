@@ -16,7 +16,7 @@ import com.wsh.common.xss.XssFilter;
  *
  * @author ruoyi
  */
-@Configuration
+//@Configuration
 public class XssFilterConfig
 {
     @Value("${xss.enabled}")
