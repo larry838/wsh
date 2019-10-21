@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
-//@Configuration
+@Configuration
 public class KaptchaConfig {
 
 	@Bean(name = "captchaProducer")
@@ -59,19 +59,19 @@ public class KaptchaConfig {
         // 验证码文本字符颜色 默认为Color.BLACK
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "blue");
         // 验证码文本字符大小 默认为40
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "35");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "32");
         // 验证码文本字体样式 默认为new Font("Arial", 1, fontSize), new Font("Courier", 1, fontSize)
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "Arial,Courier");
         // 验证码文本字符长度 默认为5
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "6");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
         // 验证码文本字符间距 默认为2
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "3");
         // 验证码噪点颜色 默认为Color.BLACK
         properties.setProperty(Constants.KAPTCHA_NOISE_COLOR, "white");       
         // 验证码图片宽度 默认为200
-        properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "160");
+        properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "116");
         // 验证码图片高度 默认为50
-        properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "60");
+        properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "36");
 
         // KAPTCHA_SESSION_KEY
         properties.setProperty(Constants.KAPTCHA_SESSION_CONFIG_KEY, KaptchaConstant.KAPTCHA_MATH_SESSION_KEY);

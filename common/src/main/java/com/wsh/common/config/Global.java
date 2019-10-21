@@ -73,7 +73,7 @@ public class Global
      */
     public static String getName()
     {
-        return StringUtils.nvl(getConfig("ruoyi.name"), "RuoYi");
+        return StringUtils.nvl(getConfig("wsh.name"), "demo");
     }
 
     /**
@@ -81,7 +81,7 @@ public class Global
      */
     public static String getVersion()
     {
-        return StringUtils.nvl(getConfig("ruoyi.version"), "4.0.0");
+        return StringUtils.nvl(getConfig("wsh.version"), "1.0.0");
     }
 
     /**
@@ -89,15 +89,7 @@ public class Global
      */
     public static String getCopyrightYear()
     {
-        return StringUtils.nvl(getConfig("ruoyi.copyrightYear"), "2019");
-    }
-
-    /**
-     * 实例演示开关
-     */
-    public static String isDemoEnabled()
-    {
-        return StringUtils.nvl(getConfig("ruoyi.demoEnabled"), "true");
+        return StringUtils.nvl(getConfig("wsh.copyrightYear"), "2019");
     }
 
     /**
@@ -105,7 +97,7 @@ public class Global
      */
     public static Boolean isAddressEnabled()
     {
-        return Boolean.valueOf(getConfig("ruoyi.addressEnabled"));
+        return Boolean.valueOf(getConfig("wsh.addressEnabled"));
     }
 
     /**
@@ -113,7 +105,7 @@ public class Global
      */
     public static String getProfile()
     {
-        return getConfig("ruoyi.profile");
+        return getConfig("wsh.profile");
     }
 
     /**

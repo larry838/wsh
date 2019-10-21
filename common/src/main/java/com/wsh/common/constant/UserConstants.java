@@ -92,7 +92,7 @@ public class UserConstants
     /**
      * 手机号码格式限制
      */
-    public static final String MOBILE_PHONE_NUMBER_PATTERN = "^0{0,1}(13[0-9]|15[0-9]|14[0-9]|18[0-9])[0-9]{8}$";
+    public static final String MOBILE_PHONE_NUMBER_PATTERN = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$";
 
     /**
      * 邮箱格式限制

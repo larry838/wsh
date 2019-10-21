@@ -1,16 +1,19 @@
 package com.wsh.framework.config;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
+import javax.servlet.Filter;
+
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.cache.ehcache.EhCacheManager;
-import org.apache.shiro.config.ConfigurationException;
-import org.apache.shiro.io.ResourceUtils;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
@@ -19,26 +22,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
-import com.wsh.common.utils.StringUtils;
 import com.wsh.framework.config.properties.RedisProperties;
 import com.wsh.framework.kaptcha.filter.KaptchaValidateFilter;
 import com.wsh.framework.redis.CustomRedisManager;
+import com.wsh.framework.shiro.credentials.RetryLimitCredentialsMatcher;
 import com.wsh.framework.shiro.filter.LogoutFilter;
 import com.wsh.framework.shiro.realm.UserRealm;
 
-import javax.servlet.Filter;
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-//@Configuration
+@Configuration
 public class ShiroConfig {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -88,7 +87,7 @@ public class ShiroConfig {
     @Autowired
     private RedisProperties redisProperties;
 
-	@Bean
+    @Bean(name = "shiroFilter")
 	public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
 		logger.info("ShiroConfiguration.shiroFilterFactoryBean()");
 
@@ -101,11 +100,7 @@ public class ShiroConfig {
         // 对静态资源设置匿名访问
         filterChainDefinitionMap.put("/favicon.ico**", "anon");
 		filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/css/**", "anon");
-        filterChainDefinitionMap.put("/fonts/**", "anon");
-        filterChainDefinitionMap.put("/img/**", "anon");
-        filterChainDefinitionMap.put("/ajax/**", "anon");
-        filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/assets/**", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
 		//配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
@@ -173,13 +168,17 @@ public class ShiroConfig {
 	 * 自定义身份认证realm
 	 * @return
 	 */
-	@Bean
-	public UserRealm userRealm(){
+	@Bean(name = "userRealm")
+	public UserRealm userRealm(@Qualifier("credentialsMatcher") RetryLimitCredentialsMatcher matcher){
 		UserRealm shiroRealm = new UserRealm();
-		shiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+		shiroRealm.setCredentialsMatcher(credentialsMatcher());
 		return shiroRealm;
 	}
-
+	
+    @Bean(name = "credentialsMatcher")
+    public RetryLimitCredentialsMatcher credentialsMatcher() {
+        return new RetryLimitCredentialsMatcher();
+    }
     /**
      * 配置shiro redisManager
      * 使用的是shiro-redis开源插件
@@ -227,28 +226,35 @@ public class ShiroConfig {
 	@Bean
 	public DefaultWebSessionManager sessionManager() {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+		sessionManager.setGlobalSessionTimeout(redisProperties.getExpire() * 1000L);
 		sessionManager.setSessionDAO(redisSessionDAO());
 		return sessionManager;
 	}
 
-	@Bean
-	public SecurityManager securityManager(){
+	 @Bean(name = "securityManager")
+	public SecurityManager securityManager(@Qualifier("userRealm") UserRealm userRealm){
 		DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
 		// 设置realm
-		securityManager.setRealm(userRealm());
+		securityManager.setRealm(userRealm);
 		// 自定义缓存实现 使用redis
 		securityManager.setCacheManager(redisCacheManager());
 		// 自定义session管理 使用redis
 		securityManager.setSessionManager(sessionManager());
 		return securityManager;
 	}
+	 
+    @Bean(name = "lifecycleBeanPostProcessor")
+    public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }
 
 	/**
 	 * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
 	 * 配置以下两个bean(DefaultAdvisorAutoProxyCreator和AuthorizationAttributeSourceAdvisor)即可实现此功能
 	 * @return
 	 */
-	@Bean
+	    @Bean
+	    @DependsOn("lifecycleBeanPostProcessor")
 	public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
 		DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
 		advisorAutoProxyCreator.setProxyTargetClass(true);
@@ -276,4 +282,31 @@ public class ShiroConfig {
 	public ShiroDialect shiroDialect() {
 		return new ShiroDialect();
 	}
+	
+
+    /**
+     * cookie对象;
+     *
+     * @return
+     */
+    public SimpleCookie rememberMeCookie() {
+        // 这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        // 记住我cookie生效时间30天 ,单位秒。 注释掉，默认永久不过期 2018-07-15
+        simpleCookie.setMaxAge(redisProperties.getExpire());
+        return simpleCookie;
+    }
+
+    /**
+     * cookie管理对象;记住我功能
+     *
+     * @return
+     */
+    public CookieRememberMeManager rememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
+        cookieRememberMeManager.setCipherKey(Base64.decode("1QWLxg+NYmxraMoxAXu/Iw=="));
+        return cookieRememberMeManager;
+    }
 }

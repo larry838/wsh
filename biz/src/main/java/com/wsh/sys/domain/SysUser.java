@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wsh.common.annotation.Excel;
 import com.wsh.common.annotation.Excel.Type;
 import com.wsh.common.core.domain.BaseEntity;
@@ -85,15 +86,16 @@ public class SysUser extends BaseEntity
     private String password;
 
     /** 盐加密 */
+    @JsonIgnore
     private String salt;
 
     /** 帐号状态（0正常 -1停用） */
     @Excel(name = "帐号状态", readConverterExp = "0=正常,-1=停用")
-    @TableLogic
-    private Integer status;
+    private String status;
 
     /** 删除标志（0代表存在 -1代表删除） */
     @TableField(value = "del_flag")
+    @TableLogic
     private String delFlag;
 
     /** 最后登陆IP */

@@ -1,5 +1,90 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wsh.sys.mapper.SysUserMapper">
-
+    <resultMap type="SysUser" id="SysUserResult">
+        <id column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_type" jdbcType="CHAR" property="userType" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="salt" jdbcType="VARCHAR" property="salt" />
+        <result column="dept_id" jdbcType="BIGINT" property="deptId" />
+        <result column="post_id" jdbcType="BIGINT" property="postId" />
+        <result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
+        <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+        <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="gender" jdbcType="CHAR" property="gender" />
+        <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+        <result column="status" jdbcType="CHAR" property="status" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="modifyed" jdbcType="CHAR" property="modifyed" />
+        
+        <association property="dept"    column="dept_id" javaType="SysDept" resultMap="deptResult" />
+        <association property="post"    column="post_id" javaType="SysPost" resultMap="postResult" />
+        <collection  property="roles"   javaType="java.util.List"        resultMap="RoleResult" />
+    </resultMap>
+    
+    <resultMap id="postResult" type="SysPost">
+        <id     property="postId"        column="post_id"      />
+        <result property="postCode"      column="post_code"    />
+        <result property="postName"      column="post_name"    />
+        <result property="postSort"      column="post_sort"    />
+        <result property="status"        column="status"       />
+    </resultMap>
+    
+    <resultMap id="deptResult" type="SysDept">
+        <id     property="deptId"   column="dept_id"     />
+        <result property="parentId" column="parent_id"   />
+        <result property="deptName" column="dept_name"   />
+        <result property="orderNum" column="order_num"   />
+        <result property="status"   column="dept_status" />
+    </resultMap>
+    
+    <resultMap id="RoleResult" type="SysRole">
+        <id     property="roleId"       column="role_id"        />
+        <result property="roleName"     column="role_name"      />
+        <result property="roleKey"      column="role_key"       />
+        <result property="roleSort"     column="role_sort"      />
+        <result property="dataScope"     column="data_scope"    />
+        <result property="status"       column="role_status"    />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+      select user_id, login_name, user_name, email, password, salt, dept_id, post_id, phonenumber, login_date, login_ip, avatar, gender, del_flag, 
+       status, remark, create_by, create_time, update_by, update_time,modifyed
+    </sql>
+  
+    <select id="selectUserByLoginName" parameterType="String" resultMap="SysUserResult">
+        <include refid="Base_Column_List"/>
+       from sys_user u where u.login_name = #{userName}
+    </select>
+    
+    <select id="selectUserByPhoneNumber" parameterType="String" resultMap="SysUserResult">
+        <include refid="Base_Column_List"/>
+         from sys_user u where u.phonenumber = #{phonenumber}
+    </select>
+    
+    <select id="selectUserByEmail" parameterType="String" resultMap="SysUserResult">
+        <include refid="Base_Column_List"/>
+         from sys_user u where u.email = #{email}
+    </select>
+    
+    <select id="checkLoginNameUnique" parameterType="String" resultType="int">
+        select count(1) from sys_user where login_name=#{loginName}
+    </select>
+    
+    <select id="checkPhoneUnique" parameterType="String" resultMap="SysUserResult">
+        select user_id, phonenumber from sys_user where phonenumber=#{phonenumber}
+    </select>
+    
+    <select id="checkEmailUnique" parameterType="String" resultMap="SysUserResult">
+        select user_id, email from sys_user where email=#{email}
+    </select>
+    
 </mapper>
