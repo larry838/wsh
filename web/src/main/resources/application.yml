@@ -14,7 +14,11 @@ wsh:
 # 开发环境配置
 # Server settings
 server:
+    # 服务器的HTTP端口，默认为80
     port: 8080
+    servlet:
+      #应用的访问路径
+      context-path: /
     # HTTP请求和响应头的最大量，以字节为单位，默认值为4096字节,超过此长度的部分不予处理,一般8K。解决java.io.EOFException: null问题
     max-http-header-size: 8192
     use-forward-headers: true
@@ -26,13 +30,29 @@ server:
         remote-ip-header: X-Forwarded-for
         protocol-header: X-Forwarded-Proto
         port-header: X-Forwarded-Port
+        # 存放Tomcat的日志目录
+        basedir: /var/tomcat
+        accesslog: 
+          # 开启日志记录
+          enabled: true
+          # 访问日志存放目录
+          directory: logs
+        # tomcat的URI编码
         uri-encoding: UTF-8
-        basedir: /var/tmp/website-app
+        # tomcat最大线程数，默认为200
+        max-threads: 800
+        # Tomcat启动初始化的线程数，默认值25
+        min-spare-threads: 30    
+# 日志配置
+logging:
+  level:
+    com.ruoyi: debug
+    org.springframework: WARN
+    org.spring.springboot.dao: debug
+    
+    
 # SPRING PROFILES
 spring:
-
-    application:
-        name: wsh
   # 模板引擎
     thymeleaf:
         mode: HTML
@@ -46,7 +66,7 @@ spring:
       time-zone: GMT+8
       date-format: yyyy-MM-dd HH:mm:ss
     profiles: 
-      active: druid,mybatisplus
+      include: druid,mybatisplus
     # 文件上传
     servlet:
        multipart:
@@ -106,12 +126,6 @@ spring:
 banner:
     charset: UTF-8
         
-# 日志配置
-logging:
-  level:
-    com.wsh: debug
-    org.springframework: WARN
-    org.spring.springboot.dao: debug
 
 # 用户配置
 user:

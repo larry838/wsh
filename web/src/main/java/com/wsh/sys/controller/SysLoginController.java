@@ -23,7 +23,7 @@ import com.wsh.common.utils.servlet.ServletUtils;
  */
 @Controller
 public class SysLoginController extends BaseController
-{
+{ 
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response)
     {
