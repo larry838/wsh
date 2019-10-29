@@ -1,5 +1,6 @@
 package com.wsh.framework.config;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,13 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+
 //@Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfig  extends WebMvcConfigurerAdapter {
 
 	/**
 	 * 
@@ -24,8 +32,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	// 重写添加拦截器方法并添加配置拦截器
 
-	@Override
-
+	
+/*
+    @Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
 		List excludePatternsList = new ArrayList<>();
@@ -44,10 +53,39 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		excludePatternsList.add("*.png");
 
 		// 日志拦截器
-		registry.addInterceptor(null).addPathPatterns("/**").excludePathPatterns(excludePatternsList);
+		registry.addInterceptor().addPathPatterns("/**").excludePathPatterns(excludePatternsList);
 
 	}
-
+	*/
+	
+    /**
+     *  fastjson序列化
+     *
+     * */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.configureMessageConverters(converters);
+        List<MediaType> supportedMediaTypes = new ArrayList<>();
+        supportedMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+        fastJsonHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
+        FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");    // 自定义时间格式
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat,SerializerFeature.DisableCircularReferenceDetect,
+                SerializerFeature.WriteNullNumberAsZero,SerializerFeature.WriteNullBooleanAsFalse,SerializerFeature.WriteMapNullValue,
+                SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteNullListAsEmpty,SerializerFeature.WriteDateUseDateFormat,
+                SerializerFeature.BrowserCompatible,SerializerFeature.WriteNonStringKeyAsString);
+        converters.add(fastJsonHttpMessageConverter);
+        converters.add(responseBodyConverter());       
+    }
+ 
+    @Bean
+    public HttpMessageConverter<String> responseBodyConverter() {
+        StringHttpMessageConverter converter = new StringHttpMessageConverter(
+                Charset.forName("UTF-8"));
+        return converter;
+    }
+    
 	/**
 	 * 
 	 * 跨域配置

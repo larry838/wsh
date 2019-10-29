@@ -52,7 +52,7 @@ iframe{ position:absolute; height:100%; width:100%; border:none;}
 .logo{ color: #fff; float: left; line-height:60px; font-size:20px; padding:0 25px; text-align: center; width:150px;}
 .hideMenu{ float:left; width:20px; height:20px; margin-top:15px; font-size:17px; line-height:20px; text-align:center; padding:5px 5px; color:#fff; background-color:#1AA094; }
 .hideMenu:hover{ color:#fff; }
-.layui-nav cite{ margin-left: 0px;}
+.layui-nav cite{ margin-left: 5px;}
 /*顶部右侧*/
 .topLevelMenus{float:left;}
 .topLevelMenus li.layui-nav-item:hover{ background-color:rgba(221,221,221,0.2);}
@@ -106,7 +106,7 @@ iframe{ position:absolute; height:100%; width:100%; border:none;}
 .closeBox a span.layui-nav-more{ border-color:#333 transparent transparent;}
 .closeBox a span.layui-nav-more.layui-nav-mored{ border-color:transparent transparent #333;}
 /*功能设定*/
-.functionSrtting_box{ padding-top:15px;}
+.functionSrtting_box{ padding-top:25px;}
 .functionSrtting_box .layui-form-label{ width:81px;}
 .functionSrtting_box .layui-word-aux{ position:absolute;left:60px; top:9px; font-size: 12px;}
 /*换肤*/
@@ -146,6 +146,7 @@ iframe{ position:absolute; height:100%; width:100%; border:none;}
 @media screen and (max-width:480px){
 	.logo{ width:120px; font-size: 18px;}
 	#userInfo>a{ padding:0 10px;}
+	#systemSetting>a{ padding:0 10px;}
 	.mobileTopLevelMenus[mobile] li>a{ padding:0 17px 0 15px;}
 	.logo,.layui-nav.top_menu{ padding:0 5px;}
 	.adminName,.top_menu dd[pc]{ display: none !important; }

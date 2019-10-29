@@ -13,6 +13,7 @@
 	<link rel="icon" href="/assets/favicon.ico">
 	<link rel="stylesheet" href="/assets/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="/assets/css/index.css" media="all" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
@@ -40,18 +41,30 @@
 				</ul>
 			    <!-- 顶部右侧菜单 -->
 			    <ul class="layui-nav top_menu">
-					<li class="layui-nav-item lockcms" pc>
-						<a href="javascript:;"><i class="seraph icon-lock"></i> <cite>锁屏</cite></a>
-					</li>
-					<li class="layui-nav-item" id="userInfo">
-						<a href="javascript:;"><cite class="adminName"><shiro:principal property="userName" /></cite></a>
+                    <li class="layui-nav-item lockcms" pc>
+                        <a href="javascript:;"><i class="seraph icon-lock"></i> <cite>锁屏</cite></a>
+                    </li>
+                    <li class="layui-nav-item" pc>
+                        <a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+                    </li>
+                     <li class="layui-nav-item" id="fullScreen" pc>
+                        <a title="全屏显示" href="javascript:void(0)"><i class="fa fa-arrows-alt"></i><cite>全屏显示</cite><span class="layui-badge-dot"></span></a>
+                     </li>
+                     <li class="layui-nav-item" id="systemSetting" pc>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-set"></i><cite><cite>系统设置</cite></a>
+                        <dl class="layui-nav-child">
+                            <dd pc><a href="javascript:;" class="functionSetting"><i class="layui-icon">&#xe631;</i><cite>功能设定</cite><span class="layui-badge-dot"></span></a></dd>
+                            <dd pc><a href="javascript:;" class="changeSkin"><i class="layui-icon">&#xe61b;</i><cite>更换皮肤</cite></a></dd>
+                            <dd><a href="javascript:;" class="showNotice"><i class="layui-icon">&#xe645;</i><cite>系统公告</cite><span class="layui-badge-dot"></span></a></dd>
+
+                        </dl>
+                     </li>
+					 <li class="layui-nav-item" id="userInfo">
+						<a href="javascript:;"><img src="/assets/images/face.jpg" class="layui-nav-img userAvatar"><cite class="adminName"><shiro:principal property="userName" /></cite></a>
 						<dl class="layui-nav-child">
-							<dd><a href="javascript:;" data-url="/user/center.html"><cite>个人资料</cite></a></dd>
-							<dd><a href="javascript:;" data-url="/user/change.html"><cite>修改密码</cite></a></dd>
-							<dd><a href="javascript:;" class="showNotice"><cite>系统公告</cite><span class="layui-badge-dot"></span></a></dd>
-							<dd pc><a href="javascript:;" class="functionSetting"><cite>功能设定</cite><span class="layui-badge-dot"></span></a></dd>
-							<dd pc><a href="javascript:;" class="changeSkin"><cite>更换皮肤</cite></a></dd>
-							<dd><a href="/logout" class="signOut"><cite>安全退出</cite></a></dd>
+							<dd><a href="javascript:;" data-url="/user/center.html"><i class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
+							<dd><a href="javascript:;" data-url="/user/change.html"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
+							<dd><a href="/logout" class="signOut"><i class="seraph icon-tuichu"></i><cite>安全退出</cite></a></dd>
 						</dl>
 					</li>
 				</ul>
@@ -66,7 +79,7 @@
 			<div class="navBar layui-side-scroll" id="navBar">
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item layui-this">
-						<a href="javascript:;" data-url="/main.html"><cite>后台首页</cite></a>
+						<a href="javascript:;" data-url="/system/main"><i class="layui-icon layui-icon-home"></i><cite>后台首页</cite></a>
 					</li>
 				</ul>
 			</div>
@@ -89,7 +102,7 @@
 				</ul>
 				<div class="layui-tab-content clildFrame">
 					<div class="layui-tab-item layui-show">
-						<iframe src="/main.html"></iframe>
+						<iframe src="/system/main"></iframe>
 					</div>
 				</div>
 			</div>
@@ -104,8 +117,18 @@
 	<div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
 	<div class="site-mobile-shade"></div>
     <script th:inline="javascript">var face_url = [[@{/assets/images/face.jpg}]];</script>
+    <script src="../static/assets/js/jquery/jquery.min.js" th:src="@{/assets/js/jquery/jquery.min.js}"  charset="utf-8"></script>
+    <script src="../static/assets/js/fullscreen/jquery.fullscreen.js" th:src="@{/assets/js/fullscreen/jquery.fullscreen.js}"></script>
 	<script type="text/javascript" src="/assets/layui/layui.js"></script>
 	<script type="text/javascript" src="/assets/js/index.js"></script>
 	<script type="text/javascript" src="/assets/js/cache.js"></script>
+	   <script type="text/javascript">
+$(function(){
+    // 全屏显示
+    $('#fullScreen').on('click', function () {
+        $(document).toggleFullScreen();
+    });
+});
+</script>
 </body>
 </html>

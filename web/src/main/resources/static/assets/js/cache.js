@@ -5,12 +5,11 @@ layui.use(['form','jquery',"layer"],function() {
         $ = layui.jquery,
         layer = parent.layer === undefined ? layui.layer : top.layer;
 
-
+    /*
     if(window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true"){
         showNotice();
     }
-
-    /*
+   */
     function showNotice(){
         layer.open({
             type: 1,
@@ -18,9 +17,9 @@ layui.use(['form','jquery',"layer"],function() {
             area: '300px',
             shade: 0.8,
             id: 'LAY_layuipro',
-            btn: ['火速围观'],
+            btn: ['确定'],
             moveType: 1,
-            content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p class="layui-red">本系统完全免费，仅供参考学习，可作为后台管理系统使用！</p></pclass></p><p>系统采用springboot、mybatisplus、shiro、log4j、layuicms2.0、mysql5.6、redis、jdk1.8开发而成，具备完整的权限管理功能，代码简洁，容易入门，可在此基础上进行二次开发，后续更多功能将持续更新！温馨提示：<span class="layui-red">所有资源均来源于互联网，如果对此有任何异议，请联系作者</span></p></div>',
+            content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p class="layui-red">本系统完全免费，供参考学习，可作为后台管理系统使用！</p></pclass></p><p>系统采用springboot2.1.6、mybatisplus3.2、shiro、log4j、layuicms2.0、mysql5.7、redis、jdk1.8开发而成，具备完整的权限管理功能，代码简洁，容易入门，可在此基础上进行二次开发。温馨提示：<span class="layui-red">所有资源均来源于互联网，如果对此有任何异议，请联系作者</span></p></div>',
             success: function(layero){
                 var btn = layero.find('.layui-layer-btn');
                 btn.css('text-align', 'center');
@@ -36,7 +35,7 @@ layui.use(['form','jquery',"layer"],function() {
     function tipsShow(){
         window.sessionStorage.setItem("showNotice","true");
         if($(window).width() > 432){  //如果页面宽度不足以显示顶部“系统公告”按钮，则不提示
-            layer.tips('系统公告躲在了这里', '#userInfo', {
+            layer.tips('系统公告躲在了这里', '#systemSetting', {
                 tips: 3,
                 time : 1000
             });
@@ -45,7 +44,14 @@ layui.use(['form','jquery',"layer"],function() {
     $(".showNotice").on("click",function(){
         showNotice();
     })
-    */
+    
+    //判断是否设置过头像，如果设置过则修改顶部、左侧和个人资料中的头像，否则使用默认头像
+    if(window.sessionStorage.getItem('userFace') &&  $(".userAvatar").length > 0){
+        $("#userFace").attr("src",window.sessionStorage.getItem('userFace'));
+        $(".userAvatar").attr("src",$(".userAvatar").attr("src").split("images/")[0] + "images/" + window.sessionStorage.getItem('userFace').split("images/")[1]);
+    }else{
+        $("#userFace").attr("src","/../images/face.jpg");
+    }
 
     //锁屏
     function lockPage(){
@@ -54,16 +60,20 @@ layui.use(['form','jquery',"layer"],function() {
             type : 1,
             content : '<div class="admin-header-lock" id="lock-box">'+
                             '<div class="admin-header-lock-img"><img src="'+face_url+'" class="userAvatar"/></div>'+
-                            '<div class="admin-header-lock-name" id="lockUserName">邪客</div>'+
+                            '<div class="admin-header-lock-name" id="lockUserName">管理员</div>'+
                             '<div class="input_btn">'+
                                 '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁..." name="lockPwd" id="lockPwd" />'+
                                 '<button class="layui-btn" id="unlock">解锁</button>'+
                             '</div>'+
+                            '<p>请输入您的密码，否则不会解锁成功哦！！！</p>'+
                         '</div>',
             closeBtn : 0,
             shade : 0.9,
             success : function(){
-
+                //判断是否设置过头像，如果设置过则修改顶部、左侧和个人资料中的头像，否则使用默认头像
+                if(window.sessionStorage.getItem('userFace') &&  $(".userAvatar").length > 0){
+                    $(".userAvatar").attr("src",$(".userAvatar").attr("src").split("images/")[0] + "images/" + window.sessionStorage.getItem('userFace').split("images/")[1]);
+                }
             }
         })
         $("#lockUserName").text($(".userName").text());
@@ -79,6 +89,7 @@ layui.use(['form','jquery',"layer"],function() {
     }
     // 解锁
     $("body").on("click","#unlock",function(){
+    	 window.sessionStorage.setItem("lockcms",false);//////////////////////////////暂时关闭
         if($(this).siblings(".admin-header-lock-input").val() == ''){
             layer.msg("请输入解锁密码！");
             $(this).siblings(".admin-header-lock-input").focus();
@@ -86,7 +97,7 @@ layui.use(['form','jquery',"layer"],function() {
             $.post("/user/unlock",{
                 password : $(this).siblings(".admin-header-lock-input").val()
             },function(res){
-                if(res.data){
+                if(res.code==0){
                     window.sessionStorage.setItem("lockcms",false);
                     $(this).siblings(".admin-header-lock-input").val('');
                     layer.closeAll("page");
@@ -115,7 +126,7 @@ layui.use(['form','jquery',"layer"],function() {
     $(".functionSetting").click(function(){
         layer.open({
             title: "功能设定",
-            area: ["350px", "235px"],
+            area: ["380px", "300px"],
             type: "1",
             content :  '<div class="functionSrtting_box">'+
                             '<form class="layui-form">'+
@@ -133,9 +144,16 @@ layui.use(['form','jquery',"layer"],function() {
                                         '<div class="layui-word-aux">开启后切换窗口刷新当前页面</div>'+
                                     '</div>'+
                                 '</div>'+
+                                '<div class="layui-form-item">'+
+                                   '<label class="layui-form-label">单一登录</label>'+
+                                   '<div class="layui-input-block">'+
+                                        '<input type="checkbox" name="oneLogin" lay-filter="multipleLogin" lay-skin="switch" lay-text="是|否">'+
+                                        '<div class="layui-word-aux">开启后不可同时多个地方登录</div>'+
+                                    '</div>'+
+                                '</div>'+
                                 '<div class="layui-form-item skinBtn">'+
-                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="settingSuccess">设定完成</a>'+
-                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-primary" lay-submit="" lay-filter="noSetting">朕再想想</a>'+
+                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="settingSuccess">确定</a>'+
+                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-primary" lay-submit="" lay-filter="noSetting">取消</a>'+
                                 '</div>'+
                             '</form>'+
                         '</div>',
@@ -203,8 +221,8 @@ layui.use(['form','jquery',"layer"],function() {
                                     '</div>'+
                                 '</div>'+
                                 '<div class="layui-form-item skinBtn">'+
-                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="changeSkin">确定更换</a>'+
-                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-primary" lay-submit="" lay-filter="noChangeSkin">朕再想想</a>'+
+                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="changeSkin">确定</a>'+
+                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-primary" lay-submit="" lay-filter="noChangeSkin">取消</a>'+
                                 '</div>'+
                             '</form>'+
                         '</div>',
