@@ -3,7 +3,7 @@ package com.wsh.sys.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wsh.common.constant.UserConstants;
+import com.wsh.common.constant.SysConstants;
 import com.wsh.common.utils.StringUtils;
 import com.wsh.sys.domain.SysUser;
 import com.wsh.sys.mapper.SysUserMapper;
@@ -63,9 +63,9 @@ public class SysUserServiceImpl implements SysUserService{
         int count = userMapper.checkLoginNameUnique(loginName);
         if (count > 0)
         {
-            return UserConstants.USER_NAME_NOT_UNIQUE;
+            return SysConstants.USER_NAME_NOT_UNIQUE;
         }
-        return UserConstants.USER_NAME_UNIQUE;
+        return SysConstants.USER_NAME_UNIQUE;
     }
 
     /**
@@ -81,9 +81,9 @@ public class SysUserServiceImpl implements SysUserService{
         SysUser info = userMapper.checkPhoneUnique(user.getPhonenumber());
         if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue())
         {
-            return UserConstants.USER_PHONE_NOT_UNIQUE;
+            return SysConstants.USER_PHONE_NOT_UNIQUE;
         }
-        return UserConstants.USER_PHONE_UNIQUE;
+        return SysConstants.USER_PHONE_UNIQUE;
     }
 
     /**
@@ -99,9 +99,9 @@ public class SysUserServiceImpl implements SysUserService{
         SysUser info = userMapper.checkEmailUnique(user.getEmail());
         if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue())
         {
-            return UserConstants.USER_EMAIL_NOT_UNIQUE;
+            return SysConstants.USER_EMAIL_NOT_UNIQUE;
         }
-        return UserConstants.USER_EMAIL_UNIQUE;
+        return SysConstants.USER_EMAIL_UNIQUE;
     }
     
     /**

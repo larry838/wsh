@@ -1,5 +1,7 @@
 package com.wsh.framework.shiro.utils;
 
+import java.util.Objects;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.mgt.RealmSecurityManager;
@@ -57,7 +59,7 @@ public class ShiroUtils
 
     public static String getLoginName()
     {
-    	return StringUtils.nvl(getSysUser().getLoginName(), ""); 
+    	return Objects.nonNull(getSysUser()) ? getSysUser().getLoginName():"";
     }
    
     public static String getIp()

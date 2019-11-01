@@ -1,11 +1,11 @@
 package com.wsh.common.constant;
 
 /**
- * 用户常量信息
+ * 系统常量信息
  * 
  * @author Carry xie
  */
-public class UserConstants
+public class SysConstants
 {
     /**
      * 平台内系统用户的唯一标志

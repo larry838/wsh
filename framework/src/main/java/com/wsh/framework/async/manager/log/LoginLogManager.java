@@ -1,14 +1,16 @@
 package com.wsh.framework.async.manager.log;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wsh.sys.domain.SysLoginLog;
+import com.wsh.sys.service.SysLoginLogService;
 
 
 @Service
 public class LoginLogManager {
-	
-  //  private SysLoginLogService loginLogService;
+	@Autowired
+    private SysLoginLogService loginLogService;
 	
     /**
      * 新增系统登录日志
@@ -17,7 +19,7 @@ public class LoginLogManager {
      */
 
     public void insertLoginLog(SysLoginLog loginLog){
-		//loginLogService.insertLoginLog(loginLog);
+		loginLogService.insertLoginLog(loginLog);
     }
 
 }

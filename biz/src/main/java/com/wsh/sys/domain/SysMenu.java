@@ -62,8 +62,9 @@ public class SysMenu extends BaseEntity
     /** 菜单状态:0显示,1隐藏 */
     private String visible;
 
-    /** 权限字符串 */
-    private String perms;
+    /** 权限编码 */
+    @Column(name = "permission_code")
+    private String permissionCode;
 
     /** 菜单图标 */
     private String icon;
@@ -93,7 +94,7 @@ public class SysMenu extends BaseEntity
             .append("target", getTarget())
             .append("menuType", getMenuType())
             .append("visible", getVisible())
-            .append("perms", getPerms())
+            .append("permissionCode", getPermissionCode())
             .append("icon", getIcon())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())

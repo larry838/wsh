@@ -8,7 +8,7 @@ import com.wsh.common.utils.StringUtils;
  * 
  * @author Carry xie
  */
-public class AjaxResult extends HashMap<String, Object>
+public class AjaxResult<T> extends HashMap<String, Object>
 {
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +51,14 @@ public class AjaxResult extends HashMap<String, Object>
     public AjaxResult()
     {
     }
-
+    
+    public AjaxResult(T data)
+    {
+        if (StringUtils.isNotNull(data))
+        {
+            super.put(DATA_TAG, data);
+        }
+    }
     /**
      * 初始化一个新创建的 AjaxResult 对象
      * 

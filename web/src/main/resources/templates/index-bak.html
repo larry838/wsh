@@ -28,11 +28,6 @@
 					<li class="layui-nav-item" data-menu="directoryNavigation">
 						<a href="javascript:;"><i class="seraph icon-caidan"></i><cite style="font-size: 15px;">目录导航</cite></a>
 						<dl class="layui-nav-child">
-						   <!-- start add-->
-						    <dd data-menu="contentManagement">
-						       <a href="javascript:;"><i class="layui-icon">&#xe63c;</i><cite>内容管理</cite></a>
-						    </dd>
-						    <!-- end add-->
 							<dd th:each="topDirectory : ${topDirectoryList}" th:attr="data-menu=${topDirectory.code}">
 								<a href="javascript:;"><i class="layui-icon" th:text="${topDirectory.code}"></i><cite th:text="${topDirectory.name}"></cite></a>
 							</dd>
@@ -40,11 +35,6 @@
 					</li>
 				</ul>
 				<ul class="layui-nav topLevelMenus" pc>
-				    <!-- start add-->
-				    <li class="layui-nav-item" data-menu="contentManagement">
-                        <a href="javascript:;"><i class="layui-icon">&#xe63c;</i><cite>内容管理</cite></a>
-                    </li>
-                    <!-- end add-->
 					<li class="layui-nav-item" th:each="topDirectory : ${topDirectoryList}" th:attr="data-menu=${topDirectory.code}" pc>
 						<a href="javascript:;"><i class="layui-icon" th:text="${topDirectory.code}"></i><cite th:text="${topDirectory.name}"></cite></a>
 					</li>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsh.sys.mapper.SysLoginLogMapper">
+    <resultMap type="SysLoginLog" id="SysLoginLogResult">
+        <id column="log_id" jdbcType="BIGINT" property="logId" />
+        <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+        <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+        <result column="login_location" jdbcType="VARCHAR" property="loginLocation" />
+        <result column="browser" jdbcType="VARCHAR" property="browser" />
+        <result column="os" jdbcType="VARCHAR" property="os" />
+        <result column="status" jdbcType="CHAR" property="status" />
+        <result column="msg" jdbcType="VARCHAR" property="msg" />
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    </resultMap>
+  
+    <insert id="insertLoginLog" parameterType="SysLoginLog">
+        insert into sys_login_log (login_name, status, ip_address, login_location, browser, os, msg, login_time)
+        values (#{loginName}, #{status}, #{ipAddress}, #{loginLocation}, #{browser}, #{os}, #{msg}, now())
+    </insert>
+
+</mapper>

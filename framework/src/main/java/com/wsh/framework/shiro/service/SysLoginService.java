@@ -6,7 +6,7 @@ import org.springframework.util.StringUtils;
 
 import com.wsh.common.constant.Constants;
 import com.wsh.common.constant.ShiroConstants;
-import com.wsh.common.constant.UserConstants;
+import com.wsh.common.constant.SysConstants;
 import com.wsh.common.enums.StatusEnum;
 import com.wsh.common.exception.user.CaptchaException;
 import com.wsh.common.exception.user.UserBlockedException;
@@ -52,16 +52,16 @@ public class SysLoginService
             throw new UserNotExistsException();
         }
         // 密码如果不在指定范围内 错误
-        if (password.length() < UserConstants.PASSWORD_MIN_LENGTH
-                || password.length() > UserConstants.PASSWORD_MAX_LENGTH)
+        if (password.length() < SysConstants.PASSWORD_MIN_LENGTH
+                || password.length() > SysConstants.PASSWORD_MAX_LENGTH)
         {
             AsyncManager.me().execute(AsyncFactory.recordLoginLog(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
             throw new UserPasswordNotMatchException();
         }
 
         // 用户名不在指定范围内 错误
-        if (username.length() < UserConstants.USERNAME_MIN_LENGTH
-                || username.length() > UserConstants.USERNAME_MAX_LENGTH)
+        if (username.length() < SysConstants.USERNAME_MIN_LENGTH
+                || username.length() > SysConstants.USERNAME_MAX_LENGTH)
         {
             AsyncManager.me().execute(AsyncFactory.recordLoginLog(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
             throw new UserPasswordNotMatchException();
@@ -107,7 +107,7 @@ public class SysLoginService
 
     private boolean maybeEmail(String username)
     {
-        if (!username.matches(UserConstants.EMAIL_PATTERN))
+        if (!username.matches(SysConstants.EMAIL_PATTERN))
         {
             return false;
         }
@@ -116,7 +116,7 @@ public class SysLoginService
 
     private boolean maybeMobilePhoneNumber(String username)
     {
-        if (!username.matches(UserConstants.MOBILE_PHONE_NUMBER_PATTERN))
+        if (!username.matches(SysConstants.MOBILE_PHONE_NUMBER_PATTERN))
         {
             return false;
         }
