@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_login_log")
-public class SysLoginLog  extends BaseEntity implements Serializable
+public class SysLoginLog  implements Serializable
         {
 private static final long serialVersionUID = 1L;
 

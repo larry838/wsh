@@ -13,7 +13,7 @@ public class ResultInfo<T> implements Serializable {
         this.data = data;
     }
 
-    public ResultInfo(T data, int count) {
+    public ResultInfo(T data, long count) {
         this.data = data;
         this.count = count;
     }
@@ -43,7 +43,7 @@ public class ResultInfo<T> implements Serializable {
     /**
      * 总记录数
      */
-    private int count;
+    private long count;
 
     public String getMsg() {
         return msg;
@@ -69,7 +69,7 @@ public class ResultInfo<T> implements Serializable {
         this.data = data;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 

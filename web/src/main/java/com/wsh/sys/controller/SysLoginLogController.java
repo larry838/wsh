@@ -2,6 +2,7 @@ package com.wsh.sys.controller;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,15 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wsh.common.annotation.SysLog;
 import com.wsh.common.core.controller.BaseController;
 import com.wsh.common.core.domain.AjaxResult;
-import com.wsh.common.core.page.TableDataInfo;
+import com.wsh.common.core.domain.ResultInfo;
 import com.wsh.common.enums.BusinessType;
 import com.wsh.common.text.Convert;
 import com.wsh.common.utils.poi.ExcelUtil;
 import com.wsh.sys.domain.SysLoginLog;
 import com.wsh.sys.service.SysLoginLogService;
+
+
 /**
  * 系统访问记录Controller
  * 
@@ -38,7 +44,7 @@ public class SysLoginLogController extends BaseController
     private SysLoginLogService sysLoginLogService;
 
     @RequiresPermissions("loginLog:view")
-    @GetMapping()
+    @GetMapping("/view")
     public String logininfor()
     {
         return prefix + "/list";
@@ -48,14 +54,14 @@ public class SysLoginLogController extends BaseController
      * 查询系统访问记录列表
      */
     @RequiresPermissions("loginLog:list")
-    @PostMapping("/list")
+    @RequestMapping("/list")
     @ResponseBody
-    public TableDataInfo list(SysLoginLog sysLogininfor)
-    {
-        startPage();
-        return getDataTable(sysLoginLogService.list(new QueryWrapper<>()));
+    public ResultInfo<List<SysLoginLog>> listData(SysLoginLog sysLoginLog, Page page){
+    	IPage<SysLoginLog> pageObj = (IPage<SysLoginLog>) sysLoginLogService.page(page, Wrappers.query(sysLoginLog));
+    	return new ResultInfo<>(pageObj.getRecords(),pageObj.getTotal());
     }
-
+    
+    
     /**
      * 导出系统访问记录列表
      */

@@ -2,6 +2,8 @@ package com.wsh.sys.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "sys_oper_log")
-public class SysOperLog extends BaseEntity
+public class SysOperLog implements Serializable
 {
     private static final long serialVersionUID = 1L;
 

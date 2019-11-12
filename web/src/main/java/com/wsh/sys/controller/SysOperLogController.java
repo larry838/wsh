@@ -39,7 +39,7 @@ public class SysOperLogController extends BaseController
     private SysOperLogService sysOperLogService;
 
     @RequiresPermissions("operlog:view")
-    @GetMapping()
+    @GetMapping("/view")
     public String log()
     {
         return prefix + "/log";
@@ -49,7 +49,7 @@ public class SysOperLogController extends BaseController
      * 查询操作日志记录列表
      */
     @RequiresPermissions("operlog:list")
-    @PostMapping("/list")
+    @RequestMapping("/list")
     @ResponseBody
     public TableDataInfo list(SysOperLog sysOperLog)
     {

@@ -40,4 +40,3 @@ mybatis-plus:
     mapper-locations: classpath*:/mapper/**/*Mapper.xml
     # 别名包扫描路径，通过该属性可以给包中的类注册别名,多个目录用逗号或者分号分隔
     type-aliases-package: com.wsh.*.domain
-    
