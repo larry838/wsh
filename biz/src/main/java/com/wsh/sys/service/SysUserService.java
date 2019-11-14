@@ -1,5 +1,7 @@
 package com.wsh.sys.service;
 
+import java.util.List;
+
 import com.wsh.sys.domain.SysUser;
 
 public interface SysUserService {
@@ -59,5 +61,11 @@ public interface SysUserService {
      * @return 结果
      */
     public int updateUserInfo(SysUser user);
-
+    
+    /**
+     * 根据角色查用户列表
+     * @param roleId
+     * @return
+     */
+    public  List<SysUser> listByRoleId(Long roleId);
 }

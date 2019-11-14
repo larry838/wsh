@@ -28,7 +28,7 @@ import com.wsh.common.exception.user.UserBlockedException;
 import com.wsh.common.exception.user.UserNotExistsException;
 import com.wsh.common.exception.user.UserPasswordNotMatchException;
 import com.wsh.common.exception.user.UserPasswordRetryLimitExceedException;
-import com.wsh.framework.shiro.service.SysLoginService;
+import com.wsh.framework.shiro.service.impl.SysLoginService;
 import com.wsh.framework.shiro.utils.ShiroUtils;
 import com.wsh.sys.domain.SysUser;
 import com.wsh.sys.service.SysMenuService;

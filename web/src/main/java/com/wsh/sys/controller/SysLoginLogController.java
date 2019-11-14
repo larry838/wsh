@@ -31,7 +31,7 @@ import com.wsh.sys.service.SysLoginLogService;
 /**
  * 系统访问记录Controller
  * 
- * @author ruoyi
+ * @author Carry xie
  * @date 2019-11-01
  */
 @Controller

@@ -1,5 +1,7 @@
 package com.wsh.sys.mapper;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wsh.sys.domain.SysUser;
 
@@ -52,4 +54,13 @@ public interface SysUserMapper extends BaseMapper<SysUser>{
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+    
+    
+    /**
+     * 通过角色Id获取用户列表
+     *
+     * @param roleId
+     * @return
+     */
+    List<SysUser> listByRoleId(Long roleId);
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 /**
  * 系统访问记录 服务层实现
  *
- * @author ruoyi
+ * @author Carry xie
  * @date 2019-11-01
  */
 @Service

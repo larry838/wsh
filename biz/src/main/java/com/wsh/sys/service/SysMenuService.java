@@ -12,7 +12,7 @@ import com.wsh.sys.domain.SysUser;
 /**
  * 菜单 业务层
  * 
- * @author ruoyi
+ * @author Carry xie
  */
 public interface SysMenuService
 {

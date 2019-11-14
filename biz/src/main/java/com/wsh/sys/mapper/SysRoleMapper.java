@@ -7,7 +7,7 @@ import com.wsh.sys.domain.SysRole;
 /**
  * 角色表 数据层
  * 
- * @author ruoyi
+ * @author Carry xie
  */
 public interface SysRoleMapper {
 	

@@ -9,7 +9,7 @@ import com.wsh.sys.domain.SysMenu;
 /**
  * 菜单表 数据层
  * 
- * @author ruoyi
+ * @author Carry xie
  */
 public interface SysMenuMapper extends BaseMapper<SysMenu>
 {

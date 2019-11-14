@@ -14,7 +14,7 @@ import com.wsh.common.xss.XssFilter;
 /**
  * Filter配置
  *
- * @author ruoyi
+ * @author Carry xie
  */
 @Configuration
 public class XssFilterConfig

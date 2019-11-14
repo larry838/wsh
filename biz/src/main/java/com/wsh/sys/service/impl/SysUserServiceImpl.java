@@ -1,5 +1,7 @@
 package com.wsh.sys.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -114,5 +116,17 @@ public class SysUserServiceImpl implements SysUserService{
     public int updateUserInfo(SysUser user)
     {
         return userMapper.updateById(user);
+    }
+    
+    /**
+     * 通过角色Id获取用户列表
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<SysUser> listByRoleId(Long roleId) {
+        List<SysUser> sysUsers = userMapper.listByRoleId(roleId);
+        return sysUsers;
     }
 }

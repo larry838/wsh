@@ -23,8 +23,8 @@ import com.wsh.common.json.JSON;
 import com.wsh.framework.async.factory.AsyncFactory;
 import com.wsh.framework.async.manager.AsyncManager;
 import com.wsh.framework.shiro.utils.ShiroUtils;
-import com.wsh.sys.domain.SysOperLog;
 import com.wsh.sys.domain.SysUser;
+import com.wsh.system.domain.SysOperLog;
 
 
 /**

@@ -86,5 +86,14 @@
     <select id="checkEmailUnique" parameterType="String" resultMap="SysUserResult">
         select user_id, email from sys_user where email=#{email}
     </select>
-    
+ 
+    <select id="listByRoleId" parameterType="Long" resultMap="SysUserResult">
+        SELECT
+            s.user_id,s.login_name, s.user_name, s.user_type, s.user_name_en
+        FROM
+            sys_user s
+        INNER JOIN sys_user_role sur ON  sur.user_id = s.user_id
+        WHERE
+            sur.role_id = #{roleId}
+    </select>   
 </mapper>

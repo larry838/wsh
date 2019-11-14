@@ -24,6 +24,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -34,6 +35,7 @@ import com.wsh.framework.redis.CustomRedisManager;
 import com.wsh.framework.shiro.credentials.RetryLimitCredentialsMatcher;
 import com.wsh.framework.shiro.filter.LogoutFilter;
 import com.wsh.framework.shiro.realm.UserRealm;
+import com.wsh.framework.shiro.service.ShiroService;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
@@ -85,8 +87,28 @@ public class ShiroConfig {
     private String unauthorizedUrl;
     
     @Autowired
+    private ShiroService shiroService;
+    
+    @Autowired
     private RedisProperties redisProperties;
 
+    @Bean
+    public MethodInvokingFactoryBean methodInvokingFactoryBean(SecurityManager securityManager){
+        MethodInvokingFactoryBean bean = new MethodInvokingFactoryBean();
+        bean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
+        bean.setArguments(securityManager);
+        return bean;
+    }
+    
+    /**
+     * ShiroFilterFactoryBean 处理拦截资源文件问题。
+     * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，因为在
+     * 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
+     * Filter Chain定义说明
+     * 1、一个URL可以配置多个Filter，使用逗号分隔
+     * 2、当设置多个过滤器时，全部验证通过，才视为通过
+     * 3、部分过滤器可指定参数，如perms，roles
+     */
     @Bean(name = "shiroFilter")
 	public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
 		logger.info("ShiroConfiguration.shiroFilterFactoryBean()");
@@ -95,18 +117,6 @@ public class ShiroConfig {
 		// Shiro的核心安全接口,这个属性是必须的
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-		//拦截器-过滤链的定义
-		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
-        // 对静态资源设置匿名访问
-        filterChainDefinitionMap.put("/favicon.ico**", "anon");
-		filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/assets/**", "anon");
-        filterChainDefinitionMap.put("/druid/**", "anon");
-        filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
-		//配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-		filterChainDefinitionMap.put("/logout", "logout");
-        // 不需要拦截的访问
-        filterChainDefinitionMap.put("/login", "anon,captchaValidate");
         
 		//<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
 		//<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
@@ -116,14 +126,14 @@ public class ShiroConfig {
         filters.put("logout", logoutFilter());
         shiroFilterFactoryBean.setFilters(filters);
 
-        // 所有请求需要认证
-        filterChainDefinitionMap.put("/**", "user");
 		// 身份认证失败，则跳转到登录页面的配置
 		shiroFilterFactoryBean.setLoginUrl(loginUrl);
 		// 权限认证失败，则跳转到指定页面
 		shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/index");
+        // 配置数据库中的resource
+        Map<String, String> filterChainDefinitionMap = shiroService.loadFilterChainDefinitions();
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}  

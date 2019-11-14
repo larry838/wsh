@@ -8,7 +8,7 @@ import com.wsh.sys.domain.SysLoginLog;
 /**
  * 系统访问记录 服务层
  *
- * @author ruoyi
+ * @author Carry xie
  * @date 2019-11-01
  */
 public interface SysLoginLogService extends IService<SysLoginLog>

@@ -5,11 +5,29 @@
             "icon": "&#xe612;",
             "href": "/menu/view",
             "spread": false
+    },{
+            "title": "代码生成",
+            "icon": "&#xe612;",
+            "href": "/tool/gen",
+            "spread": false
     },
-        {
+    {
+            "title": "字典类型",
+            "icon": "&#xe612;",
+            "href": "/sys/type",
+            "spread": false
+    },
+    {
+            "title": "数据字典",
+            "icon": "&#xe612;",
+            "href": "/sys/data",
+            "spread": false
+    },
+    
+      {
             "title": "操作日志",
             "icon": "&#xe612;",
-            "href": "/operlog/view",
+            "href": "/system/log",
             "spread": false
     },
         {

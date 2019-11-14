@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-    <groupId>com.wshsoft</groupId>
+    <groupId>com.wsh</groupId>
     <artifactId>wsh</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -79,22 +79,27 @@
 			<!-- ====================-->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>wsh-common</artifactId>
+				<artifactId>${wsh-common.aid}</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>wsh-framework</artifactId>
+				<artifactId>${wsh-framework.aid}</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>wsh-biz</artifactId>
+				<artifactId>${wsh-biz.aid}</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>wsh-admin</artifactId>
+				<artifactId>${wsh-web.aid}</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>${wsh-generator.aid}</artifactId>
 				<version>${project.version}</version>
 			</dependency>
             <!-- SpringBoot的依赖配置-->

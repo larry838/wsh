@@ -14,7 +14,7 @@ import com.wsh.framework.async.manager.log.LoginLogManager;
 import com.wsh.framework.async.manager.log.SysOperLogManager;
 import com.wsh.framework.shiro.utils.ShiroUtils;
 import com.wsh.sys.domain.SysLoginLog;
-import com.wsh.sys.domain.SysOperLog;
+import com.wsh.system.domain.SysOperLog;
 
 import eu.bitwalker.useragentutils.UserAgent;
 
