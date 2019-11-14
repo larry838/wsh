@@ -73,18 +73,6 @@ public class GenTable extends BaseEntity
     /** 树名称字段 */
     private String treeName;
 
-    private String remark;
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-
-
     public Long getTableId()
     {
         return tableId;
@@ -264,6 +252,7 @@ public class GenTable extends BaseEntity
     {
         return tplCategory != null && StringUtils.equals(GenConstants.TPL_CRUD, tplCategory);
     }
+
     public boolean isSuperColumn(String javaField)
     {
         return isSuperColumn(this.tplCategory, javaField);

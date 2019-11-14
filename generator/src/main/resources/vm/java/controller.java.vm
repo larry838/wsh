@@ -72,11 +72,11 @@ public class ${ClassName}Controller extends BaseController {
     public TableDataInfo list(${ClassName} ${className})
     {
         startPage();
-        return getDataTable(${className}Service.list(new QueryWrapper<>()));
-	/*
-	 List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+        //return getDataTable(${className}Service.list(new QueryWrapper<>()));
+	
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
         return getDataTable(list);
-	*/
+	
     }
 #end
 

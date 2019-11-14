@@ -7,7 +7,9 @@
 #foreach ($column in $columns)
         <result property="${column.javaField}"    column="${column.columnName}"    />
 #end
-
+#if($table.tree)
+        <result property="parentName" column="parent_name" />
+#end
     </resultMap>
 
     <sql id="select${ClassName}Vo">
