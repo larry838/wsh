@@ -8,7 +8,7 @@ import com.wsh.sys.domain.SysDictData;
 import com.wsh.sys.service.SysDictDataService;
 
 /**
- * RuoYi首创 html调用 thymeleaf 实现字典读取
+ * html调用 thymeleaf 实现字典读取
  * 
  * @author Carry xie
  */
