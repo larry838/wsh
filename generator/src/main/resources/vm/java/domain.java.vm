@@ -42,7 +42,7 @@ public class ${ClassName}  extends ${Entity} implements Serializable {
 #if(!$table.isSuperColumn($column.javaField))
     /** $column.columnComment */
   #if("1"==$column.isPk)
-    @TableId(value="${column.columnName}", type= IdType.AUTO)
+   @TableId(value="${column.columnName}", type= IdType.AUTO)
   #elseif(${column.columnName}!=${column.javaField})
   @TableField("${column.columnName}")
   #end
@@ -71,7 +71,11 @@ public class ${ClassName}  extends ${Entity} implements Serializable {
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 #foreach ($column in $columns)
+#if($column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
             .append("${column.javaField}", get${AttrName}())
 #end
             .toString();
