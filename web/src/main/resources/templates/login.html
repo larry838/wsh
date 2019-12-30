@@ -2,7 +2,7 @@
 <html class="loginHtml" lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
-	<title>登录--后台管理系统</title>
+	<title>登录--个人学习管理系统</title>
     <meta name="description" content="后台管理系统">
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -48,6 +48,10 @@
             <a href="javascript:;" class="seraph icon-sina layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
         </div>
 	</form>
+	    <!-- 底部 -->
+        <div style="position: absolute; z-index: 9999999;bottom:0; margin: 0 auto; width:100%; text-align: center; background-color:#fbfbfb;">
+         <p><span>&copyright 2019-2020   wshsoft.top   版权所有 ICP证：<a target="_blank" href="http://beian.miit.gov.cn/">浙ICP备19049002号</a></span></p>
+        </div>  
   </div>
     <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
     <script src="../static/assets/layui/layui.js" th:src="@{/assets/layui/layui.js}"></script>
